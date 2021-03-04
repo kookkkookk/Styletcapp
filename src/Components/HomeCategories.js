@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {withNavigation} from '@react-navigation/compat';
+import AnimatedFadeInView from './AnimatedFadeInView';
 
 class HomeCategories extends Component {
   componentDidMount() {
@@ -23,6 +24,12 @@ class HomeCategories extends Component {
     const {navigation, items} = this.props;
     return (
       <ScrollView style={Style.wrapper}>
+        <View style={Style.logoBox}>
+          <Image
+            style={Style.logoIcon}
+            source={require('../images/logo_b.png')}
+          />
+        </View>
         {items.length > 0 ? (
           items.map((item, idx) => (
             <View key={idx} style={Style.main}>
@@ -44,39 +51,48 @@ class HomeCategories extends Component {
                         categoryName: item.name,
                         articleId: article.article_id,
                       })
-                    }>
-                    <View
-                      style={
-                        artIdx === 0 ? Style.contentItem : Style.contentItemRow
-                      }>
-                      <Image
-                        resizeMode="contain"
+                    }
+                  >
+                    <AnimatedFadeInView
+                      delay={artIdx * 100}
+                      animatedFrom={'right'}
+                      value={20}
+                    >
+                      <View
                         style={
-                          artIdx === 0 ? Style.contentImg : Style.contentImgRow
+                          artIdx === 0 ? Style.contentItem : Style.contentItemRow
                         }
-                        source={{uri: article.cover.md}}
-                      />
-                      <View style={artIdx !== 0 ? Style.contentInfo : ''}>
-                        <Text
-                          key={idx}
-                          numberOfLines={3}
+                      >
+                        <Image
+                          resizeMode="contain"
                           style={
-                            artIdx === 0
-                              ? Style.contentTitle
-                              : Style.contentTitleRow
-                          }>
-                          {article.title}
-                        </Text>
-                        <View style={Style.contentPublishBox}>
-                          <Text style={Style.contentPublishDate}>
-                            {/* {item.name}
-                            {article.article_id}
-                            {'-'} */}
-                            {article.publish_at}
+                            artIdx === 0 ? Style.contentImg : Style.contentImgRow
+                          }
+                          source={{uri: article.cover.md}}
+                        />
+                        <View style={artIdx !== 0 ? Style.contentInfo : ''}>
+                          <Text
+                            key={idx}
+                            numberOfLines={3}
+                            style={
+                              artIdx === 0
+                                ? Style.contentTitle
+                                : Style.contentTitleRow
+                            }
+                          >
+                            {article.title}
                           </Text>
+                          <View style={Style.contentPublishBox}>
+                            <Text style={Style.contentPublishDate}>
+                              {/* {item.name}
+                              {article.article_id}
+                              {'-'} */}
+                              {article.publish_at}
+                            </Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
+                    </AnimatedFadeInView>
                   </TouchableOpacity>
                 ))}
               </View>
@@ -93,6 +109,17 @@ class HomeCategories extends Component {
 const Style = StyleSheet.create({
   wrapper: {
     flex: 1,
+  },
+  logoBox: {
+    width: '100%',
+    height: 50,
+    marginBottom: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoIcon: {
+    width: 87,
+    height: 33,
   },
   main: {
     flex: 1,

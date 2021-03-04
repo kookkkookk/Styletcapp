@@ -36,7 +36,7 @@ class Article extends Component {
         data: res.data.data.article,
         isLoading: false,
       });
-      console.log('data:', this.state.data);
+      // console.log('data:', this.state.data);
     } catch (err) {
       console.warn(err);
       this.setState({

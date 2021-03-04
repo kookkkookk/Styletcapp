@@ -4,10 +4,12 @@ import {
   StatusBar,
   StyleSheet,
   View,
+  Text,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 // import {WebView} from 'react-native-webview';
-// import TabNavigator from 'react-native-tab-navigator';
+import TabNavigator from 'react-native-tab-navigator';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import HomeCategories from '../Components/HomeCategories';
@@ -18,7 +20,7 @@ class Home extends Component {
     this.state = {
       isLoading: false,
       data: [],
-      // selectedTab: 'tabCategories',
+      selectedTab: 'tabCategories',
     };
   }
 
@@ -46,23 +48,25 @@ class Home extends Component {
   };
 
   render() {
-    const {isLoading, data} = this.state;
+    const {isLoading, data, selectedTab} = this.state;
 
     return (
       <>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView style={Style.wrapper}>
-          {/* <TabNavigator tabBarStyle={Style.tabBar}>
+          <TabNavigator tabBarStyle={Style.tabBar}>
             <TabNavigator.Item
               selected={this.state.selectedTab === 'tabCategories'}
               title="Categories"
               titleStyle={{color: 'grey'}}
               selectedTitleStyle={{color: 'black'}}
               renderIcon={() => (
-                <Ionicons name="shirt-outline" size={22} color="grey" />
+                // <Ionicons name="shirt-outline" size={22} color="grey" />
+                <Text style={Style.colorGrey}>分類</Text>
               )}
               renderSelectedIcon={() => (
-                <Ionicons name="shirt-outline" size={22} color="black" />
+                // <Ionicons name="shirt-outline" size={22} color="black" />
+                <Text style={Style.colorBlack}>分類</Text>
               )}
               onPress={() => this.setState({selectedTab: 'tabCategories'})}>
               <View style={Style.container}>
@@ -77,8 +81,50 @@ class Home extends Component {
                 )}
               </View>
             </TabNavigator.Item>
-          </TabNavigator> */}
-          <View style={Style.container}>
+            <TabNavigator.Item
+              selected={this.state.selectedTab === 'tabAbout'}
+              title="About"
+              titleStyle={{color: 'grey'}}
+              selectedTitleStyle={{color: 'black'}}
+              renderIcon={() => (
+                <Text style={Style.colorGrey}>關於</Text>
+              )}
+              renderSelectedIcon={() => (
+                <Text style={Style.colorBlack}>關於</Text>
+              )}
+              onPress={() => this.setState({selectedTab: 'tabAbout'})}>
+              <View style={Style.container}></View>
+            </TabNavigator.Item>
+            <TabNavigator.Item
+              selected={this.state.selectedTab === 'tabSearch'}
+              title="Search"
+              titleStyle={{color: 'grey'}}
+              selectedTitleStyle={{color: 'black'}}
+              renderIcon={() => (
+                <Text style={Style.colorGrey}>搜尋</Text>
+              )}
+              renderSelectedIcon={() => (
+                <Text style={Style.colorBlack}>搜尋</Text>
+              )}
+              onPress={() => this.setState({selectedTab: 'tabSearch'})}>
+              <View style={Style.container}></View>
+            </TabNavigator.Item>
+            <TabNavigator.Item
+              selected={this.state.selectedTab === 'tabMember'}
+              title="Member"
+              titleStyle={{color: 'grey'}}
+              selectedTitleStyle={{color: 'black'}}
+              renderIcon={() => (
+                <Text style={Style.colorGrey}>會員</Text>
+              )}
+              renderSelectedIcon={() => (
+                <Text style={Style.colorBlack}>會員</Text>
+              )}
+              onPress={() => this.setState({selectedTab: 'tabMember'})}>
+              <View style={Style.container}></View>
+            </TabNavigator.Item>
+          </TabNavigator>
+          {/* <View style={Style.container}>
             {isLoading ? (
               <ActivityIndicator
                 size={24}
@@ -88,7 +134,7 @@ class Home extends Component {
             ) : (
               <HomeCategories items={data} />
             )}
-          </View>
+          </View> */}
         </SafeAreaView>
       </>
     );
@@ -102,12 +148,19 @@ const Style = StyleSheet.create({
   },
   tabBar: {
     backgroundColor: '#ffffff',
+    paddingBottom: 6,
   },
   container: {
     flex: 1,
   },
   activityIndicator: {
     paddingVertical: 30,
+  },
+  colorGrey: {
+    color: 'grey'
+  },
+  colorBlack: {
+    color: '#000000'
   },
 });
 
